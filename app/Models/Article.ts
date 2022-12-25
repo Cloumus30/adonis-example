@@ -19,6 +19,9 @@ export default class Article extends BaseModel {
   @column()
   public published: boolean
 
+  @column()
+  public user_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -10,12 +10,14 @@ export default class extends BaseSeeder {
           description: 'Description 1',
           body: 'Body Post 1',
           published: true,
+          user_id: 1,
         },
         {
           title: 'Post 2',
           description: 'Description 2',
           body: 'Body Post 2',
           published: false,
+          user_id: 1,
         }
     ]
     await Article.createMany(data)
