@@ -18,6 +18,6 @@ export default class extends BaseSeeder {
       }
     ]
 
-    User.createMany(data)
+    await User.createMany(data)
   }
 }
