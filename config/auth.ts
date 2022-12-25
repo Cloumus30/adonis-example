@@ -6,6 +6,7 @@
  */
 
 import type { AuthConfig } from '@ioc:Adonis/Addons/Auth'
+import Env from "@ioc:Adonis/Core/Env";
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ const authConfig: AuthConfig = {
         | of the mentioned columns to find their user record.
         |
         */
-        uids: ['email'],
+        uids: ['username'],
 
         /*
         |--------------------------------------------------------------------------
@@ -148,7 +149,7 @@ const authConfig: AuthConfig = {
         | of the mentioned columns to find their user record.
         |
         */
-        uids: ['email'],
+        uids: ['username'],
 
         /*
         |--------------------------------------------------------------------------
@@ -211,7 +212,7 @@ const authConfig: AuthConfig = {
         | of the mentioned columns to find their user record.
         |
         */
-        uids: ['email'],
+        uids: ['username'],
 
         /*
         |--------------------------------------------------------------------------
@@ -226,6 +227,26 @@ const authConfig: AuthConfig = {
         */
         model: () => import('App/Models/User'),
       },
+    },
+    jwt: {
+      driver: "jwt",
+      publicKey: Env.get('JWT_PUBLIC_KEY', '').replace(/\\n/g, '\n'),
+      privateKey: Env.get('JWT_PRIVATE_KEY', '').replace(/\\n/g, '\n'),
+      persistJwt: false,
+      jwtDefaultExpire: '1h',
+      refreshTokenDefaultExpire: '1h',
+      tokenProvider: {
+        type: 'api',
+        driver: 'database',
+        table: 'jwt_tokens',
+        foreignKey: 'user_id'
+      },
+      provider: {
+        driver: "lucid",
+        identifierKey: "id",
+        uids: [],
+        model: () => import('App/Models/User')
+      }
     },
   },
 }
