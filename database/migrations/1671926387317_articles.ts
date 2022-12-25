@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('description').nullable()
       table.text('body').notNullable()
       table.boolean('published').defaultTo(false)
+      table.bigInteger('user_id').references('users.id')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
