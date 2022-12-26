@@ -28,6 +28,6 @@ Route.group(()=>{
 
   Route.group(()=>{
     Route.get('/', 'ArticlesController.viewAll')
-  }).prefix('article')
+  }).prefix('article').middleware(['auth:jwt'])
 
 }).prefix('api')
