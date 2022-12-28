@@ -232,13 +232,13 @@ const authConfig: AuthConfig = {
       driver: "jwt",
       publicKey: Env.get('JWT_PUBLIC_KEY', '').replace(/\\n/g, '\n'),
       privateKey: Env.get('JWT_PRIVATE_KEY', '').replace(/\\n/g, '\n'),
-      persistJwt: false,
+      persistJwt: true,
       jwtDefaultExpire: '1h',
-      refreshTokenDefaultExpire: '1h',
+      refreshTokenDefaultExpire: '30m',
       tokenProvider: {
-        type: 'api',
-        driver: 'database',
-        table: 'jwt_tokens',
+        type: 'jwt',
+        driver: 'redis',
+        redisConnection: 'local',
         foreignKey: 'user_id'
       },
       provider: {

@@ -25,9 +25,15 @@ Route.get('/', async () => {
 })
 
 Route.group(()=>{
+  Route.post('/login', 'User/AuthController.login')
+  Route.post('/login-jwt', 'User/AuthController.loginJwt')
+  Route.get('/logout', 'User/AuthController.logout').middleware(['auth:api'])
+}).prefix('auth')
+
+Route.group(()=>{
 
   Route.group(()=>{
-    Route.get('/', 'ArticlesController.viewAll')
-  }).prefix('article').middleware(['auth:jwt'])
+    Route.post('/', 'ArticlesController.viewAll')
+  }).prefix('article').middleware(['jwtAuth'])
 
 }).prefix('api')
