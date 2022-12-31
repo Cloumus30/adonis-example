@@ -4,6 +4,7 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import Env from '@ioc:Adonis/Core/Env'
 import jwt from 'jsonwebtoken'
 import moment from 'moment'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class AuthController {
     public async viewAll(request){
@@ -16,6 +17,17 @@ export default class AuthController {
     }
 
     public async loginJwt({request, response}){
+        const UserSchema = schema.create({
+            username: schema.string(),
+            password: schema.string([
+                rules.required()
+            ])
+        })
+
+            const payload = await request.validate({
+                schema: UserSchema
+            })
+
         const username = request.body().username;
         const password = request.body().password;
 
